@@ -1,0 +1,5 @@
+- hosts: jwp-adv
+  remote_user: javajigi
+  become: true
+  roles:
+    - nginx
