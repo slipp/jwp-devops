@@ -1,0 +1,5 @@
+download_url: http://download.oracle.com/otn-pub/java/jdk/8u101-b13/jdk-8u101-linux-x64.tar.gz
+download_folder: ~/downloads
+apps_folder: ~/apps
+java_name: "{{apps_folder}}/jdk1.8.0_101"
+java_archive: "{{download_folder}}/jdk-8u101-linux-x64.tar.gz"

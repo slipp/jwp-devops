@@ -1,0 +1,4 @@
+- hosts: jwp-adv
+  remote_user: javajigi
+  roles:
+    - deploy
