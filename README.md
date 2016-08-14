@@ -1,5 +1,7 @@
 ## 실행
-* ansible-playbook server.yml -i hosts --ask-become-pass
+* ansible-playbook setup-server.yml -i hosts --ask-become-pass
+* ansible-playbook deploy.yml -i hosts
+* -v option을 추가하면 각 task별 상태를 파악할 수 있다.
 
 ## mysql
 ### mysql 기반 코드

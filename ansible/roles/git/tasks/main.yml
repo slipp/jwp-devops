@@ -1,0 +1,6 @@
+- name: Update apt cache (Debian).
+  apt: update_cache=yes cache_valid_time=86400
+- name: Ensure git is installed (Debian).
+  apt:
+    name: git
+    state: installed

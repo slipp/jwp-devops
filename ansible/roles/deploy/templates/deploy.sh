@@ -1,16 +1,22 @@
 #!/bin/bash
 
-JAVA_HOME=~/apps/java
+JAVA_HOME={{ java_symbolic_link }}
 PATH=$PATH:$JAVA_HOME/bin
 
-REPOSITORIES_DIR=~/repositories/jwp-adv
+REPOSITORIES_DIR={{ repositories_dir }}
 
-cd $REPOSITORIES_DIR
+rm -rf $REPOSITORIES_DIR
+mkdir {{ repositories_base_dir }}
+cd {{ repositories_base_dir }}
 pwd
-git pull
+
+git clone {{ source_url }}
+cd $REPOSITORIES_DIR
+git checkout -b {{ deploy_branch_name }} origin/{{ deploy_branch_name }}
+
 ./gradlew build -x test
 
-RELEASE_DIR=~/releases/jwp-adv
+RELEASE_DIR={{ release_dir }}
 C_TIME=$(date +%s) 
 
 mkdir -p $RELEASE_DIR/$C_TIME
@@ -22,6 +28,6 @@ pkill -f 'java.*next*'
 rm -rf $RELEASE_DIR/ROOT
 ln -s $RELEASE_DIR/$C_TIME $RELEASE_DIR/ROOT
 
-java -jar -Dspring.profiles.active=production -Dserver.port=7070 $RELEASE_DIR/ROOT/next-1.0.jar &
-java -jar -Dspring.profiles.active=production -Dserver.port=8080 $RELEASE_DIR/ROOT/next-1.0.jar &
-java -jar -Dspring.profiles.active=production -Dserver.port=9090 $RELEASE_DIR/ROOT/next-1.0.jar &
+{% for port in ports %}
+java -jar -Dspring.profiles.active=production -Dserver.port={{ port }} $RELEASE_DIR/ROOT/next-1.0.jar &
+{% endfor %}
