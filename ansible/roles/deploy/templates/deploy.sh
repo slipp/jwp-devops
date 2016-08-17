@@ -28,6 +28,8 @@ pkill -f 'java.*next*'
 rm -rf $RELEASE_DIR/ROOT
 ln -s $RELEASE_DIR/$C_TIME $RELEASE_DIR/ROOT
 
+mkdir ~/logs
+
 {% for port in ports %}
-java -jar -Dspring.profiles.active=production -Dserver.port={{ port }} $RELEASE_DIR/ROOT/next-1.0.jar &
+java -jar -Dspring.profiles.active=production -Dserver.port={{ port }} $RELEASE_DIR/ROOT/next-1.0.jar > ~/logs/tomcat-{{ port}}.log 2>&1 &
 {% endfor %}
