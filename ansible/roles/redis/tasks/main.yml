@@ -1,0 +1,8 @@
+---
+- name: Add specified repository into source list
+  apt_repository: repo='ppa:rwky/redis'
+- name: NGINX | Updating apt cache
+  apt:
+    update_cache: yes
+- name: Ensure redis is installed.
+  apt: name=redis-server state=installed
